@@ -1,7 +1,6 @@
 import useFetch from '../components/useFetch';
-import siteUrl from '../components/url';
-
-console.log(siteUrl);
+import { Link } from 'react-router-dom';
+import { siteUrl } from '../components/url';
 
 function Home() {
     const {
@@ -10,13 +9,33 @@ function Home() {
         isLoading,
         responseOk,
     } = useFetch(siteUrl);
-    console.log(products);
+    if (isError) {
+        return <div>error : {responseOk.code}</div>;
+    }
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
     return (
-        <div>
+        <div className="main__container">
             <h1>Home</h1>
-            {products.map((product) => (
-                <div key={product.id}>{product.title}</div>
-            ))}
+            <div className="products__list">
+                {products.map((product) => (
+                    <div className="card" key={product.id}>
+                        <h3>{product.title}</h3>
+                        <img
+                            src={product.imageUrl}
+                            alt={product.title}
+                            style={{ width: 120 }}
+                        />
+                        <Link
+                            className="link__btn"
+                            to={`/product/${product.id}`}
+                        >
+                            View
+                        </Link>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
