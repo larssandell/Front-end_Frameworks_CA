@@ -34,9 +34,12 @@ function Product() {
                         style={{ width: 400 }}
                     />
                     <p>{item.description}</p>
-                    <p>${item.price}</p>
-                    <p>{item.discountedPrice}</p>
-                    <button>Add to cart</button>
+                    <p>
+                        {item.discountedPrice >= item.price
+                            ? `On Sale $${item.discountedPrice}`
+                            : `$${item.discountedPrice}`}
+                    </p>
+                    <button onClick={() => {}}>Add to cart</button>
                     <p>{item.rating}</p>
                     <div>
                         <p>Tags: {item.tags}</p>

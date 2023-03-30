@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import Cart from '../../icons';
 function Header() {
+    const { totalItems } = useSelector((store) => store.cart);
     return (
         <header>
             <div>Company logo</div>
@@ -13,6 +15,7 @@ function Header() {
             <div>
                 <Link to="cart">
                     <Cart />
+                    <p className="cart__totalItems">{totalItems}</p>
                 </Link>
             </div>
         </header>
