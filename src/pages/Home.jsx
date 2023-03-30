@@ -1,6 +1,7 @@
 import useFetch from '../components/useFetch';
 import { Link } from 'react-router-dom';
 import { siteUrl } from '../components/url';
+import Spinner from '../components/Loading';
 
 function Home() {
     const {
@@ -13,7 +14,11 @@ function Home() {
         return <div>error : {responseOk.code}</div>;
     }
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="loader">
+                <Spinner />
+            </div>
+        );
     }
     return (
         <div className="main__container">

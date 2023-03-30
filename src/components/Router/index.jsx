@@ -4,6 +4,7 @@ import Home from '../../pages/Home';
 import Product from '../../pages/Product';
 import Layout from './Layout';
 import Error from '../Error';
+import Contact from '../../pages/Contact';
 
 function Router() {
     return (
@@ -12,6 +13,7 @@ function Router() {
                 <Route index element={<Home />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="product/:id" element={<Product />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<Error />} />
             </Route>
         </Routes>

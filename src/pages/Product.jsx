@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { siteUrl } from '../components/url';
 import useFetch from '../components/useFetch';
-const url = `${siteUrl}`;
+import Spinner from '../components/Loading';
 
 function Product() {
     const params = useParams();
@@ -12,7 +12,11 @@ function Product() {
         responseOk,
     } = useFetch(`${siteUrl}/${params.id}`);
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="loader">
+                <Spinner />
+            </div>
+        );
     }
 
     if (isError) {
