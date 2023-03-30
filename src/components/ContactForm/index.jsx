@@ -24,7 +24,7 @@ function ContactForm() {
                     })}
                     placeholder="Full name"
                 />
-                <p>{errors.fullName?.message}</p>
+                <p className="contact__error">{errors.fullName?.message}</p>
                 <label htmlFor="email">Email:</label>
                 <input
                     {...register('email', {
@@ -36,7 +36,7 @@ function ContactForm() {
                     })}
                     placeholder="email@email.com"
                 />
-                <p>{errors.email?.message}</p>
+                <p className="contact__error">{errors.email?.message}</p>
                 <label htmlFor="title">Title:</label>
                 <input
                     {...register('title', {
@@ -48,7 +48,7 @@ function ContactForm() {
                     })}
                     placeholder="Title"
                 />
-                <p>{errors.title?.message}</p>
+                <p className="contact__error">{errors.title?.message}</p>
                 <label htmlFor="description">Description:</label>
                 <textarea
                     {...register('description', {
@@ -61,7 +61,7 @@ function ContactForm() {
                     placeholder="description"
                     rows={4}
                 />
-                <p>{errors.description?.message}</p>
+                <p className="contact__error">{errors.description?.message}</p>
                 <input type="submit" />
             </form>
         </div>
