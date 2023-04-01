@@ -2,9 +2,12 @@ import { useParams } from 'react-router-dom';
 import { siteUrl } from '../components/url';
 import useFetch from '../components/useFetch';
 import Spinner from '../components/Loading';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../slices/cartSlice';
 
 function Product() {
     const params = useParams();
+    const dispatch = useDispatch();
     const {
         data: item,
         isLoading,
@@ -39,7 +42,9 @@ function Product() {
                             ? `On Sale $${item.discountedPrice}`
                             : `$${item.discountedPrice}`}
                     </p>
-                    <button onClick={() => {}}>Add to cart</button>
+                    <button onClick={() => dispatch(addItem(item))}>
+                        Add to cart
+                    </button>
                     <p>{item.rating}</p>
                     <div>
                         <p>Tags: {item.tags}</p>
