@@ -3,9 +3,9 @@ import CartItem from '../components/CartItem';
 
 function Cart() {
     const dispatch = useDispatch();
-    const { cartItems, totalPrice, totalItems } = useSelector(
-        (store) => store.cart
-    );
+    const { cartItems, totalPrice, totalItems } = useSelector((store) => {
+        return store.cart;
+    });
 
     if (cartItems < 1) {
         return (
@@ -22,8 +22,8 @@ function Cart() {
         <div className="cart__wrapper">
             <h3>Your cart:</h3>
             <div className="cart__items">
-                {cartItems.map((item) => {
-                    return <CartItem key={item.id} {...item} />;
+                {cartItems?.map((item) => {
+                    return <CartItem key={item.product.id} {...item} />;
                 })}
                 <CartItem />
                 <ul>
