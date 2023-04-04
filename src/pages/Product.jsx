@@ -2,12 +2,19 @@ import { useParams } from 'react-router-dom';
 import { siteUrl } from '../components/url';
 import useFetch from '../components/useFetch';
 import Spinner from '../components/Loading';
-import { useDispatch } from 'react-redux';
-import { addItem } from '../slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, getTotals } from '../slices/cartSlice';
+import { useEffect } from 'react';
 
 function Product() {
+    const cart = useSelector((state) => state.cart);
     const params = useParams();
     const dispatch = useDispatch();
+    const totals = useDispatch();
+
+    useEffect(() => {
+        totals(getTotals());
+    }, [cart]);
     const {
         data: item,
         isLoading,

@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import Cart from '../../icons';
 function Header() {
     const { totalItems, totalPrice } = useSelector((store) => store.cart);
+
     return (
         <header>
             <div>Company logo</div>
