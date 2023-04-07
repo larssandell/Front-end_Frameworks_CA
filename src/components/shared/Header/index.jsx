@@ -17,7 +17,6 @@ function Header() {
                 <Link to="cart">
                     <Cart />
                     <p className="cart__totalItems">{totalItems}</p>
-                    <p className="cart__totalItems">{totalPrice}</p>
                 </Link>
             </div>
         </header>
