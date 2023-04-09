@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import Cart from '../../icons';
 function Header() {
-    const { totalItems, totalPrice } = useSelector((store) => store.cart);
+    const { totalItems } = useSelector((store) => store.cart);
 
     return (
         <header>

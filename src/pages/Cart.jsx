@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../components/CartItem';
 import {
@@ -8,13 +8,17 @@ import {
     getTotals,
     removeItem,
 } from '../slices/cartSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Cart() {
     const cart = useSelector((state) => state.cart);
     const myCart = useSelector((state) => state.cart);
     const totals = useDispatch();
     const dispatch = useDispatch();
+    const [message, setMessage] = useState('');
+    const checkBox = useRef();
+    const navigate = useNavigate();
+
     useEffect(() => {
         totals(getTotals());
     }, [cart]);
@@ -33,14 +37,19 @@ function Cart() {
     };
     const handleCheckOut = () => {
         console.log('Checked out');
+        if (checkBox.current.checked) {
+            navigate('/complete');
+        } else {
+            setMessage('Must agree with terms');
+        }
     };
 
     console.log(myCart.cartItems.length);
 
-    function test(a, b) {
-        const sum = a.parseFloat(sum.toFixed(2)) * b.parseFloat(sum.toFixed(2));
-        return sum;
-    }
+    // function test(a, b) {
+    //     const sum = a.parseFloat(sum.toFixed(2)) * b.parseFloat(sum.toFixed(2));
+    //     return sum;
+    // }
     console.log(myCart.cartItems * myCart.cartItems.discountedPrice);
 
     return (
@@ -122,8 +131,18 @@ function Cart() {
                             <div className="subtotal">
                                 <span>Total:</span>
                                 <span>$ {myCart.totalPrice}</span>
-                                <button onClick={() => handleCheckOut()}>
-                                    Check Out
+                                <input
+                                    type="checkbox"
+                                    name="agreement"
+                                    ref={checkBox}
+                                />
+
+                                <label for="agreement">
+                                    I agree to the terms and conditions
+                                </label>
+                                <p>{message}</p>
+                                <button onClick={handleCheckOut}>
+                                    Checkout
                                 </button>
                             </div>
                         </div>

@@ -5,6 +5,7 @@ import Product from '../../pages/Product';
 import Layout from './Layout';
 import Error from '../Error';
 import Contact from '../../pages/Contact';
+import CheckoutSuccess from '../../pages/CheckoutSuccess';
 
 function Router() {
     return (
@@ -14,6 +15,7 @@ function Router() {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="product/:id" element={<Product />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/complete" element={<CheckoutSuccess />} />
                 <Route path="*" element={<Error />} />
             </Route>
         </Routes>
