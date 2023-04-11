@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import Cart from '../../icons';
+import { BsFillCartFill } from 'react-icons/bs';
 function Header() {
     const { totalItems } = useSelector((store) => store.cart);
 
@@ -17,7 +17,7 @@ function Header() {
             </div>
             <div>
                 <Link to="cart">
-                    <Cart />
+                    <BsFillCartFill />
                     <p className="cart__totalItems">{totalItems}</p>
                 </Link>
             </div>
