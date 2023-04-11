@@ -18,8 +18,8 @@ function ContactForm() {
                     {...register('fullName', {
                         required: 'Required',
                         minLength: {
-                            value: 6,
-                            message: 'Min length is 6',
+                            value: 3,
+                            message: 'Min length is 3',
                         },
                     })}
                     placeholder="Full name"
@@ -37,16 +37,16 @@ function ContactForm() {
                     placeholder="email@email.com"
                 />
                 <p className="contact__error">{errors.email?.message}</p>
-                <label htmlFor="title">Title:</label>
+                <label htmlFor="Subject ">Subject :</label>
                 <input
-                    {...register('title', {
+                    {...register('Subject ', {
                         required: 'Required',
                         minLength: {
-                            value: 6,
-                            message: 'Min length is 4',
+                            value: 3,
+                            message: 'Min length is 3',
                         },
                     })}
-                    placeholder="Title"
+                    placeholder="Subject"
                 />
                 <p className="contact__error">{errors.title?.message}</p>
                 <label htmlFor="description">Description:</label>
@@ -54,8 +54,8 @@ function ContactForm() {
                     {...register('description', {
                         required: 'Required',
                         minLength: {
-                            value: 20,
-                            message: 'Min length is 20',
+                            value: 3,
+                            message: 'Min length is 3',
                         },
                     })}
                     placeholder="description"

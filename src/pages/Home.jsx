@@ -2,6 +2,9 @@ import useFetch from '../components/useFetch';
 import { Link } from 'react-router-dom';
 import { siteUrl } from '../components/url';
 import Spinner from '../components/Loading';
+import SearchBar from '../components/SearchBar';
+import { useState } from 'react';
+import MySearch from '../components/SearchBar/search';
 
 function Home() {
     const {
@@ -20,9 +23,11 @@ function Home() {
             </div>
         );
     }
+
     return (
         <div className="main__container">
-            <h1>Home</h1>
+            <h1 className="headline">Products</h1>
+            <MySearch placeholder="Search..." data={products} />
             <div className="products__list">
                 {products.map((product) => (
                     <div className="card" key={product.id}>
@@ -46,3 +51,11 @@ function Home() {
 }
 
 export default Home;
+
+{
+    /* <p>{product.price === product.discountedPrice ? `Price: ${product.price}`: `SALE: ${product.discountedPrice}!` }</p>
+<p>{product.price !== product.discountedPrice? `Save ${product.price-product.discountedPrice}` : ""}</p> */
+}
+{
+    /* <p>Total: {(Math.round(total * 100) / 100).toFixed(2)}</p> */
+}

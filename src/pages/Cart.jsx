@@ -1,11 +1,48 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../components/CartItem';
-import { getTotals } from '../slices/cartSlice';
-import { Link } from 'react-router-dom';
+import {
+    addItem,
+    clearCart,
+    decrease,
+    getTotals,
+    removeItem,
+} from '../slices/cartSlice';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Cart() {
     const myCart = useSelector((state) => state.cart);
+    const totals = useDispatch();
+    const dispatch = useDispatch();
+    const [message, setMessage] = useState('');
+    const checkBox = useRef();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        totals(getTotals());
+    }, [myCart]);
+
+    const handleRemoveFromCart = (item) => {
+        dispatch(removeItem(item));
+    };
+    const handleDecrease = (item) => {
+        dispatch(decrease(item));
+    };
+    const handleIncrease = (item) => {
+        dispatch(addItem(item));
+    };
+    const handleClearCart = () => {
+        dispatch(clearCart());
+    };
+    const handleCheckOut = () => {
+        // console.log('Checked out');
+        if (checkBox.current.checked) {
+            navigate('/complete');
+        } else {
+            setMessage('Must agree with terms');
+        }
+    };
+
     return (
         <div className="cart__wrapper">
             <h2>Shopping Cart</h2>
@@ -35,32 +72,65 @@ function Cart() {
                                     />
                                     <div>{item.title}</div>
                                     <p>{item.description}</p>
-                                    <button>Remove</button>
+                                    <button
+                                        onClick={() =>
+                                            handleRemoveFromCart(item)
+                                        }
+                                    >
+                                        Remove
+                                    </button>
                                 </div>
                                 <div className="product__price">
                                     ${item.discountedPrice}
                                 </div>
                                 <div className="cart__quantity">
-                                    <button>-</button>
+                                    <button
+                                        onClick={() => handleDecrease(item)}
+                                    >
+                                        -
+                                    </button>
                                     <div className="count">
                                         {item.productQuantity}
                                     </div>
-                                    <button>+</button>
+                                    <button
+                                        onClick={() => handleIncrease(item)}
+                                    >
+                                        +
+                                    </button>
                                 </div>
                                 <div className="cart__total">
-                                    total:
-                                    {item.discountedPrice *
-                                        item.productQuantity}
+                                    {parseFloat(
+                                        item.discountedPrice.toFixed(2)
+                                    ) *
+                                        parseFloat(
+                                            item.productQuantity.toFixed(2)
+                                        )}
                                 </div>
                             </div>
                         ))}
                     </div>
                     <div className="cart__summary">
-                        <button>Clear Cart</button>
+                        <button onClick={() => handleClearCart()}>
+                            Clear Cart
+                        </button>
                         <div className="cart__checkout">
                             <div className="subtotal">
                                 <span>Total:</span>
                                 <span>$ {myCart.totalPrice}</span>
+                                <input
+                                    type="checkbox"
+                                    name="agreement"
+                                    ref={checkBox}
+                                    id="agreement"
+                                />
+
+                                <label htmlFor="agreement">
+                                    I agree to the terms and conditions
+                                </label>
+                                <p>{message}</p>
+                                <button onClick={handleCheckOut}>
+                                    Checkout
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -68,48 +138,6 @@ function Cart() {
             )}
         </div>
     );
-    // const cart = useSelector((state) => state.Cart);
-    // useEffect(() => {
-    //     dispatch(getTotals);
-    // }, [cart]);
-    // const dispatch = useDispatch();
-    // const { cartItems, totalPrice, totalItems } = useSelector((store) => {
-    //     return store.cart;
-    // });
-
-    // if (cartItems < 1) {
-    //     return (
-    //         <div className="cart__wrapper">
-    //             <h2>Your cart:</h2>
-    //             <div className="cart__items">
-    //                 <h4>Your cart is empty</h4>
-    //             </div>
-    //         </div>
-    //     );
-    // }
-
-    // return (
-    //     <div className="cart__wrapper">
-    //         <h3>Your cart:</h3>
-    //         <div className="cart__items">
-    //             {cartItems?.map((item) => {
-    //                 return <CartItem key={item.product.id} {...item} />;
-    //             })}
-    //             <CartItem />
-    //             <ul>
-    //                 <li>{cartItems}</li>
-    //                 <button>+</button>
-    //                 <p>0</p>
-    //                 <button>-</button>
-    //             </ul>
-    //         </div>
-    //         <div className="cart__info">
-    //             <p>Items: {totalItems}</p>
-    //             <p>Total: {totalPrice}</p>
-    //             <button onClick={() => dispatch(clearCart)}>Clear cart</button>
-    //         </div>
-    //     </div>
-    // );
 }
 
 export default Cart;
