@@ -11,7 +11,6 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 
 function Cart() {
-    const cart = useSelector((state) => state.cart);
     const myCart = useSelector((state) => state.cart);
     const totals = useDispatch();
     const dispatch = useDispatch();
@@ -21,7 +20,7 @@ function Cart() {
 
     useEffect(() => {
         totals(getTotals());
-    }, [cart]);
+    }, [myCart]);
 
     const handleRemoveFromCart = (item) => {
         dispatch(removeItem(item));
@@ -36,21 +35,13 @@ function Cart() {
         dispatch(clearCart());
     };
     const handleCheckOut = () => {
-        console.log('Checked out');
+        // console.log('Checked out');
         if (checkBox.current.checked) {
             navigate('/complete');
         } else {
             setMessage('Must agree with terms');
         }
     };
-
-    console.log(myCart.cartItems.length);
-
-    // function test(a, b) {
-    //     const sum = a.parseFloat(sum.toFixed(2)) * b.parseFloat(sum.toFixed(2));
-    //     return sum;
-    // }
-    console.log(myCart.cartItems * myCart.cartItems.discountedPrice);
 
     return (
         <div className="cart__wrapper">
@@ -108,11 +99,6 @@ function Cart() {
                                     </button>
                                 </div>
                                 <div className="cart__total">
-                                    {/* må finne en løsning her */}
-                                    Sum:
-                                    {/* {() =>
-                                        test(discountedPrice, productQuantity)
-                                    } */}
                                     {parseFloat(
                                         item.discountedPrice.toFixed(2)
                                     ) *
@@ -135,9 +121,10 @@ function Cart() {
                                     type="checkbox"
                                     name="agreement"
                                     ref={checkBox}
+                                    id="agreement"
                                 />
 
-                                <label for="agreement">
+                                <label htmlFor="agreement">
                                     I agree to the terms and conditions
                                 </label>
                                 <p>{message}</p>

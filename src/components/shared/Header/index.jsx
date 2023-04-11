@@ -6,7 +6,9 @@ function Header() {
 
     return (
         <header>
-            <div>Company logo</div>
+            <div>
+                <NavLink to="/">Company logo</NavLink>
+            </div>
             <div>
                 <nav>
                     <NavLink to="/">Home</NavLink>

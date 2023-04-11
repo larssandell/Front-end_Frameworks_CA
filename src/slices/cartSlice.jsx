@@ -28,7 +28,7 @@ const cartSlice = createSlice({
                 let tempItem = { ...action.payload, productQuantity: 1 };
                 state.cartItems.push(tempItem);
             }
-            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+            localStorage.setItem('cartItem', JSON.stringify(state.cartItems));
         },
         removeItem: (state, action) => {
             const nextCartItems = state.cartItems.filter(
@@ -58,7 +58,6 @@ const cartSlice = createSlice({
                 (cartTotal, cartItem) => {
                     const { discountedPrice, productQuantity } = cartItem;
                     const itemTotal = discountedPrice * productQuantity;
-                    console.log('getTotals', itemTotal);
 
                     cartTotal.total += itemTotal;
                     cartTotal.quantity += productQuantity;
@@ -75,8 +74,8 @@ const cartSlice = createSlice({
             state.totalPrice = total;
         },
         clearCart: (state, action) => {
-            state.cartItems = [];
             localStorage.setItem('cartItem', JSON.stringify(state.cartItems));
+            return initialState;
         },
     },
 });

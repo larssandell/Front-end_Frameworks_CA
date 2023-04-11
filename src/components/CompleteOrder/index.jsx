@@ -1,17 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { MdOutlineCheckCircleOutline } from 'react-icons/md';
 import './CompleteOrder.css';
 import { clearCart } from '../../slices/cartSlice';
+// import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function CompleteOrder() {
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart);
-    (function () {
-        setTimeout(() => {
-            dispatch(clearCart());
-            console.log('cart clear');
-        }, 1000);
-    })();
+
+    const purchase = JSON.parse(localStorage.getItem('cartItem'));
+    setTimeout(() => {
+        dispatch(clearCart());
+    }, '1000');
+
     return (
         <div>
             <div className="checkOutSuccess">
@@ -24,8 +25,7 @@ function CompleteOrder() {
                     <div>Quantity</div>
                     <div>Price</div>
                 </div>
-
-                {cart.cartItems.map((item) => {
+                {purchase.map((item) => {
                     return (
                         <div className="order" key={item.id}>
                             <div>{item.title}</div>
@@ -36,7 +36,9 @@ function CompleteOrder() {
                 })}
             </section>
             <section>
-                <button>Go back</button>
+                <Link className="btn" to="/">
+                    Go back
+                </Link>
             </section>
         </div>
     );

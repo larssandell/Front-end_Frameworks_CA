@@ -7,7 +7,6 @@ import { useState } from 'react';
 import MySearch from '../components/SearchBar/search';
 
 function Home() {
-    // const [search, setSearch] = useState('');
     const {
         data: products,
         isError,
@@ -24,9 +23,10 @@ function Home() {
             </div>
         );
     }
+
     return (
         <div className="main__container">
-            <h1>Home</h1>
+            <h1 className="headline">Products</h1>
             <MySearch placeholder="Search..." data={products} />
             <div className="products__list">
                 {products.map((product) => (
